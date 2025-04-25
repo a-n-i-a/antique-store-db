@@ -1,19 +1,19 @@
-DROP TABLE ANTIQUE CASCADE CONSTRAINTS;
-DROP TABLE ANTIQUECATEGORY CASCADE CONSTRAINTS;
-DROP TABLE ANTIQUECUSTOMER CASCADE CONSTRAINTS;
-DROP TABLE AntiqueEmployee CASCADE CONSTRAINTS;
-DROP TABLE ANTIQUELOCATION CASCADE CONSTRAINTS;
-DROP TABLE Antique_Sale CASCADE CONSTRAINTS;
-DROP TABLE Auction CASCADE CONSTRAINTS;
-DROP TABLE Condition CASCADE CONSTRAINTS;
-DROP TABLE Role CASCADE CONSTRAINTS;
-DROP TABLE Sale CASCADE CONSTRAINTS;
-DROP TABLE Supplier CASCADE CONSTRAINTS;
+DROP TABLE ANTIQUE;
+DROP TABLE ANTIQUECATEGORY;
+DROP TABLE ANTIQUECUSTOMER;
+DROP TABLE AntiqueEmployee;
+DROP TABLE ANTIQUELOCATION;
+DROP TABLE Antique_Sale;
+DROP TABLE Auction;
+DROP TABLE Condition;
+DROP TABLE Role;
+DROP TABLE Sale;
+DROP TABLE Supplier;
 
 
 CREATE TABLE Antique (
                          AntiqueID int  NOT NULL,
-                         Name varchar2(100)  NOT NULL,
+                         Name varchar(100)  NOT NULL,
                          ACategoryID int  NOT NULL,
                          SupplierID int  NOT NULL,
                          Price decimal(10,2)  NOT NULL,
@@ -24,30 +24,30 @@ CREATE TABLE Antique (
 
 CREATE TABLE AntiqueCategory (
                                  ACategoryID int  NOT NULL,
-                                 Name varchar2(100)  NOT NULL,
-                                 Description varchar2(200)  NULL,
+                                 Name varchar(100)  NOT NULL,
+                                 Description varchar(200)  NULL,
                                  CONSTRAINT AntiqueCategory_pk PRIMARY KEY (ACategoryID)
 ) ;
 
 CREATE TABLE AntiqueCustomer (
                                  ACustomerID int  NOT NULL,
-                                 Name varchar2(100)  NOT NULL,
-                                 Email varchar2(100)  NULL,
-                                 Phone varchar2(20)  NULL,
+                                 Name varchar(100)  NOT NULL,
+                                 Email varchar(100)  NULL,
+                                 Phone varchar(20)  NULL,
                                  CONSTRAINT AntiqueCustomer_pk PRIMARY KEY (ACustomerID)
 ) ;
 
 CREATE TABLE AntiqueEmployee (
                                  AEmployeeID int  NOT NULL,
-                                 Name varchar2(100)  NOT NULL,
-                                 ContactInfo varchar2(200)  NOT NULL,
+                                 Name varchar(100)  NOT NULL,
+                                 ContactInfo varchar(200)  NOT NULL,
                                  Role_RoleID integer  NOT NULL,
                                  CONSTRAINT AntiqueEmployee_pk PRIMARY KEY (AEmployeeID)
 ) ;
 
 CREATE TABLE AntiqueLocation (
                                  ALocationID int  NOT NULL,
-                                 Address varchar2(200)  NOT NULL,
+                                 Address varchar(200)  NOT NULL,
                                  Capacity int  NOT NULL,
                                  CONSTRAINT AntiqueLocation_pk PRIMARY KEY (ALocationID)
 ) ;
@@ -65,7 +65,7 @@ CREATE TABLE Auction (
                          AuctionID int  NOT NULL,
                          AntiqueID int  NOT NULL,
                          AuctionDate date  NOT NULL,
-                         Auctioneer varchar2(100)  NOT NULL,
+                         Auctioneer varchar(100)  NOT NULL,
                          FinalPrice decimal(10,2)  NOT NULL,
                          ALocationID int  NOT NULL,
                          CONSTRAINT Auction_pk PRIMARY KEY (AuctionID)
@@ -73,13 +73,13 @@ CREATE TABLE Auction (
 
 CREATE TABLE Condition (
                            ConditionID integer  NOT NULL,
-                           ConditionName varchar2(20)  NOT NULL,
+                           ConditionName varchar(20)  NOT NULL,
                            CONSTRAINT Condition_pk PRIMARY KEY (ConditionID)
 ) ;
 
 CREATE TABLE Role (
                       RoleID integer  NOT NULL,
-                      RoleName varchar2(20)  NOT NULL,
+                      RoleName varchar(20)  NOT NULL,
                       CONSTRAINT Role_pk PRIMARY KEY (RoleID)
 ) ;
 
@@ -94,9 +94,9 @@ CREATE TABLE Sale (
 
 CREATE TABLE Supplier (
                           SupplierID int  NOT NULL,
-                          Name varchar2(100)  NOT NULL,
-                          ContactInfo varchar2(200)  NOT NULL,
-                          Address varchar2(200)  NULL,
+                          Name varchar(100)  NOT NULL,
+                          ContactInfo varchar(200)  NOT NULL,
+                          Address varchar(200)  NULL,
                           CONSTRAINT Supplier_pk PRIMARY KEY (SupplierID)
 ) ;
 
@@ -200,22 +200,22 @@ INSERT INTO AntiqueEmployee (AEmployeeID, Name, ContactInfo, Role_RoleID)
 VALUES (3, 'Charlie White', 'charlie.w@example.com', 3);
 
 INSERT INTO Sale (SaleID, ACustomerID, AEmployeeID, SaleDate, TotalAmount)
-VALUES (1, 1, 1, TO_DATE('2025-01-01', 'YYYY-MM-DD'), 1200.00);
+VALUES (1, 1, 1, CAST('2025-01-01' AS DATE), 1200.00);
 INSERT INTO Sale (SaleID, ACustomerID, AEmployeeID, SaleDate, TotalAmount)
-VALUES (2, 2, 2, TO_DATE('2025-01-03', 'YYYY-MM-DD'), 5500.00);
+VALUES (2, 2, 2, CAST('2025-01-03' AS DATE), 5500.00);
 INSERT INTO Sale (SaleID, ACustomerID, AEmployeeID, SaleDate, TotalAmount)
-VALUES (3, 3, 3, TO_DATE('2025-01-05', 'YYYY-MM-DD'), 2500.00);
+VALUES (3, 3, 3, CAST('2025-01-05' AS DATE), 2500.00);
 INSERT INTO Sale (SaleID, ACustomerID, AEmployeeID, SaleDate, TotalAmount)
-VALUES (4, 1, 1, SYSDATE, 1500.00);
+VALUES (4, 1, 1, GETDATE(), 1500.00);
 INSERT INTO Sale (SaleID, ACustomerID, AEmployeeID, SaleDate, TotalAmount)
-VALUES (5, 2, 2, SYSDATE, 7500.00);
+VALUES (5, 2, 2, GETDATE(), 7500.00);
 INSERT INTO Sale (SaleID, ACustomerID, AEmployeeID, SaleDate, TotalAmount)
-VALUES (6, 1, 1, SYSDATE, 1000.00);
+VALUES (6, 1, 1, GETDATE(), 1000.00);
 
 INSERT INTO Auction (AuctionID, AntiqueID, AuctionDate, Auctioneer, FinalPrice, ALocationID)
-VALUES (1, 2, TO_DATE('2025-01-02', 'YYYY-MM-DD'), 'Bob Brown', 6000.00, 2);
-INSERT INTO Auction (AuctionID, AntiqueID, AuctionDate, Auctioneer, FinalPrice, ALocationID)
-VALUES (2, 4, TO_DATE('2025-01-04', 'YYYY-MM-DD'), 'Charlie White', 8000.00, 3);
+VALUES (1, 2, CAST('2025-01-02' AS DATE), 'Bob Brown', 6000.00, 2)
+    INSERT INTO Auction (AuctionID, AntiqueID, AuctionDate, Auctioneer, FinalPrice, ALocationID)
+VALUES (2, 4, CAST('2025-01-04' AS DATE), 'Charlie White', 8000.00, 3);
 
 INSERT INTO Antique_Sale (AntiqueSaleID, AntiqueID, SaleID, Quantity, Subtotal)
 VALUES (1, 1, 1, 1, 1200.00);
